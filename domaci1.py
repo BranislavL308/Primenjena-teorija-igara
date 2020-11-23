@@ -106,6 +106,15 @@ plt.savefig('rewards.png')
 
 # %% Main loop -- Learning & Acting, na svakih 200 koraka menja se bandit
 
+
+def eps_greedy(q, eps=0.9): # menjamo eps: 0.1,0.5,0.9
+    if rand() < eps:
+        # choose random action
+        return randint(0, len(q))
+    else:
+        # choose greedy action
+        return greedy(q)
+
 q = [1, 5, -3, 15, -24]
 
 actions = []
@@ -122,10 +131,10 @@ for k in range(1000):
     #a = greedy(q)
     
     #eps_greedy
-    #a = eps_greedy(q)
+    a = eps_greedy(q)
 
     #softmax
-    a =softmax_policy(q)
+    #a =softmax_policy(q)
     #print(a)
     
     r = environment(a, bandits)
@@ -163,6 +172,6 @@ plt.plot(q4, "m", label="q4")
 plt.legend()
 
 plt.grid()
-#plt.savefig('all_eps_0.5.png')
+
 
 # %%
